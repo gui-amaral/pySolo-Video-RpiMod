@@ -204,7 +204,7 @@
       <hr>
 
 	<div class = "container">	
-	<form role="form">  
+	<form role="form" method="put">  
 		<div class="form-group">
 			<label for="exampleInputFile">File input</label>
 			<input type="file" id="exampleInputFile">

@@ -186,6 +186,14 @@ def poweroff(machineID):
         if isAlreadyRunning:
             startStop()
         off = call("poweroff")
+		
+@app.put('/update')
+def update():
+	if os.path.splitext(upload.filename)[1] != ".zip":
+		return "File must be in .zip format"
+	else:
+		pass
+	
         
 """helpers methods."""
 
