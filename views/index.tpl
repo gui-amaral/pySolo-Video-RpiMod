@@ -206,7 +206,6 @@
 	<div class = "container">	
 	<form action="/update" role="form" method="post" enctype="multipart/form-data">  
 		<div class="form-group">
-			<input type="text" name="name" />
 			<input type="file" name="data" />
 			<p class="help-block">Select version to upload.</p>
 		</div>
