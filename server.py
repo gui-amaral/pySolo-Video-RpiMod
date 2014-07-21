@@ -194,7 +194,9 @@ def do_update():
     if name and data and data.file:
         raw = data.file.read() # This is dangerous for big files
         filename = data.filename
-        return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
+		with open(filename,'w') as open_file:
+			open_file.write(data.file.read())
+			return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
     return "You missed a field."
 
 """helpers methods."""
