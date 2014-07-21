@@ -189,19 +189,20 @@ def poweroff(machineID):
 		
 @app.put('/update')
 def update():
-	name, ext = os.path.splitext(upload.filename)
-    if ext not in ('zip'):
-        return 'File extension must be .zip.'
-	
-	name = request.forms.put('name')
-	data = request.files.put('data')
-	if name is not None and data is not None:
-		raw = data.file.read() # small files =.=
-		filename = data.filename
-		return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
-    return "You missed a field."
-	
-        
+    category = request.forms.get('category')
+    upload = request.files.get('upload')
+    name, ext = os.path.splitext(upload.filename)
+    if ext not in ('.zip'):
+        return "File extension not allowed."
+
+    save_path = "/tmp/{category}".format(category=category)
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+
+    file_path = "{path}/{file}".format(path=save_path, file=upload.filename)
+    upload.save(file_path)
+    return "File successfully saved to '{0}'.".format(save_path)
+
 """helpers methods."""
 
 def checkPid():
