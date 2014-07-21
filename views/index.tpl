@@ -204,13 +204,13 @@
       <hr>
 
 	<div class = "container">	
-	<form action="http://localhost:8088/update" role="form" method="put">  
+	<form action="/update" role="form" method="post" enctype="multipart/form-data">  
 		<div class="form-group">
-			<label for="exampleInputFile">File input</label>
-			<input type="file" id="exampleInputFile">
+			<input type="text" name="name" />
+			<input type="file" name="data" />
 			<p class="help-block">Select version to upload.</p>
 		</div>
-	<button action="http://localhost:8088/update" method="put" type="submit" class="btn btn-default btn-sm">Submit</button>
+	<button action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
     </form>
     </div>
 	<hr>
