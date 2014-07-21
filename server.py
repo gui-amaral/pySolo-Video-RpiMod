@@ -187,21 +187,15 @@ def poweroff(machineID):
             startStop()
         off = call("poweroff")
 		
-@app.put('/update')
-def update():
-    category = request.forms.get('category')
-    upload = request.files.get('upload')
-    name, ext = os.path.splitext(upload.filename)
-    if ext not in ('.zip'):
-        return "File extension not allowed."
-
-    save_path = "/tmp/{category}".format(category=category)
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
-
-    file_path = "{path}/{file}".format(path=save_path, file=upload.filename)
-    upload.save(file_path)
-    return "File successfully saved to '{0}'.".format(save_path)
+@app.post('/update')
+def do_update():
+    name = request.forms.name
+    data = request.files.data
+    if name and data and data.file:
+        raw = data.file.read() # This is dangerous for big files
+        filename = data.filename
+        return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
+    return "You missed a field."
 
 """helpers methods."""
 
