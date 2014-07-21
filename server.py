@@ -189,10 +189,17 @@ def poweroff(machineID):
 		
 @app.put('/update')
 def update():
-	if os.path.splitext(upload.filename)[1] != ".zip":
-		return "File must be in .zip format"
-	else:
-		pass
+	name, ext = os.path.splitext(upload.filename)
+    if ext not in ('zip'):
+        return 'File extension must be .zip.'
+	
+	name = request.forms.put('name')
+	data = request.files.put('data')
+	if name is not None and data is not None:
+		raw = data.file.read() # small files =.=
+		filename = data.filename
+		return "Hello %s! You uploaded %s (%d bytes)." % (name, filename, len(raw))
+    return "You missed a field."
 	
         
 """helpers methods."""

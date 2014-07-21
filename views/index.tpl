@@ -204,13 +204,13 @@
       <hr>
 
 	<div class = "container">	
-	<form role="form" method="put">  
+	<form action="http://localhost:8088/update" role="form" method="put">  
 		<div class="form-group">
 			<label for="exampleInputFile">File input</label>
 			<input type="file" id="exampleInputFile">
 			<p class="help-block">Select version to upload.</p>
 		</div>
-	<button type="submit" class="btn btn-default btn-sm">Submit</button>
+	<button action="http://localhost:8088/update" method="put" type="submit" class="btn btn-default btn-sm">Submit</button>
     </form>
     </div>
 	<hr>
