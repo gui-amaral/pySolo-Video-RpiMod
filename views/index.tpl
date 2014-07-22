@@ -203,8 +203,8 @@
    </div>
       <hr>
 
-	<div class = "container">	
-	<form action="/update" role="form" method="post" enctype="multipart/form-data">  
+	<div class = "col-md-12">	
+	<form action="/update" method="post" enctype="multipart/form-data" role="form">  
 		<div class="form-group">
 			<input type="file" name="data" />
 			<p class="help-block">Select version to upload.</p>

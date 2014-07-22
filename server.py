@@ -189,16 +189,19 @@ def poweroff(machineID):
 		
 @app.post('/update')
 def do_update():
-	#name = request.forms.name
+	pid,isAlreadyRunning = checkPid()
+	if isAlreadyRunning:
+		startStop()
+	start = call(['python3', 'server.py'])
 	data = request.files.data
 	name1,ext = os.path.splitext(data.filename)
 	if ext not in ('.zip'):
 		return 'File must be in zip format.'	
 	if data and data.file:
-        	filename = data.filename
+		filename = data.filename
     		with open(filename,'w') as open_file:
 			open_file.write(data.file.read())
-			return "Hello! You uploaded %s." % (filename)
+			return "You uploaded %s." % (filename)
 
 """helpers methods."""
 
