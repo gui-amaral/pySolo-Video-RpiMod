@@ -204,14 +204,22 @@
       <hr>
 
 	<div class = "col-md-12">	
-	<form action="/update" method="post" enctype="multipart/form-data" role="form">  
-		<div class="form-group">
-			<input type="file" name="data" />
-			<p class="help-block">Select version to upload.</p>
-		</div>
-	<button action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
-    </form>
-    </div>
+		<form action="/update" method="post" enctype="multipart/form-data" role="form">  
+			<div class="form-group">
+				<input type="file" name="data" />
+				<p class="help-block">Select version to upload.</p>
+			</div>
+			<button onclick="return conf();"  action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
+			<script type="text/javascript">
+				function conf() {
+					if (confirm("WARNING: updating the package will stop tracking. Do you wish to continue?")) {
+					} else {
+						return false;
+					};
+				};
+			</script>
+		</form>
+	</div>
 	<hr>
 
       <footer>

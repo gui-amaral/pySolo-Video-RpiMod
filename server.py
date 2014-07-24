@@ -5,6 +5,8 @@ from subprocess import Popen, PIPE, call
 from os import path, kill
 from signal import SIGTERM
 import json
+import zipfile
+import glob
 
 basedir=path.dirname(os.path.realpath(__file__))
 
@@ -192,7 +194,6 @@ def do_update():
 	pid,isAlreadyRunning = checkPid()
 	if isAlreadyRunning:
 		startStop()
-	start = call(['python3', 'server.py'])
 	data = request.files.data
 	name1,ext = os.path.splitext(data.filename)
 	if ext not in ('.zip'):
@@ -201,7 +202,16 @@ def do_update():
 		filename = data.filename
     		with open(filename,'w') as open_file:
 			open_file.write(data.file.read())
-			return "You uploaded %s." % (filename)
+	
+	with zipfile.ZipFile(data.filename, "r") as z:
+   		z.extractall()
+	
+	for hgx in glob.glob(data.filename):
+		os.remove(hgx)
+	
+	run(reloader=True)
+	
+	return "You uploaded %s. Server restarting" % (data.filename)
 
 """helpers methods."""
 
