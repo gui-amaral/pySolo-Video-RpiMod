@@ -209,6 +209,8 @@ def do_update():
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
 
+    call(['python3','server.py'])
+
     return redirect('/')
 
 """helpers methods."""
