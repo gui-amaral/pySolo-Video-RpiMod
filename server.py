@@ -208,8 +208,10 @@ def do_update():
 
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
+    
+#    kill(pid,SIGTERM)
 
-    call(['python3','server.py'])
+#    call(['python3','server.py'])
 
     return redirect('/')
 
