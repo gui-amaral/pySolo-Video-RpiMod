@@ -208,10 +208,11 @@ def do_update():
 
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
-    
-#    kill(pid,SIGTERM)
 
-#    call(['python3','server.py'])
+#    pid_svr = checkPid_server()
+#    kill(pid_svr,SIGTERM)
+
+    call(['python3','restartScript.py'])
 
     return redirect('/')
 
@@ -222,13 +223,25 @@ def checkPid():
                   "python2 "+path.join(basedir,"pvg_standalone.py")]
                  , stdout=PIPE)
     try:
-        pid=int(proc.stdout.readline())
-        started=True
+        pid = int(proc.stdout.readline())
+        started = True
     except:
-        started=False
+        started = False
         pid = None
     proc.stdout.close()
     return pid, started
+
+def checkPid_server():
+    proc = Popen(["pgrep", "-f",
+                  "python3 "+path.join(basedir,"server.py")]
+                 , stdout=PIPE)
+    try:
+        pid = int(proc.pid)
+    except:
+        pid = None
+    proc.stdout.close()
+    return pid
+
 
 def changeMId(name):
     f = open(path.join(basedir,'machineId'),'w')

@@ -1,17 +1,17 @@
 from subprocess import Popen, PIPE, call
-from os import path,kill
+from os import path, kill
 from signal import SIGTERM
 
+basedir=path.dirname(path.realpath(__file__))
+
 def pid():
-    proc = Popen(["pgrep", "-f", "python2 "+path.join(basedir,"pvg_standalone.py")],stdout=PIPE)
+    proc = Popen(["pgrep", "-f", "python3 "+path.join(basedir,"server.py")],stdout=PIPE)
     try:
-        pid=int(proc.stdout.readline())
-        started=True
+        pid=int(proc.pid)
     except:
-        started=False
         pid = None
     proc.stdout.close()
-    return pid, started
+    return pid
 
 pid = pid()
 
