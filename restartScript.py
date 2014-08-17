@@ -16,4 +16,5 @@ def pid():
 pid = pid()
 
 kill(pid,SIGTERM)
+
 call(['python3','server.py'])

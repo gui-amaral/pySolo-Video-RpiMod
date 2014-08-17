@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="static/css/main.css">
 
         <script src="static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
+	<script></script>
         
     </head>
     <body ng-app="fly">
@@ -60,9 +60,10 @@
       <div class="container text-center">
         <div class="row">
         <h2>PySolo-Video Browser editor</h2>
+	<img src="../static/img/foo.jpg" width="500" height="300"></img>
           <div id="ROI-input" class="col-md-12">
             <canvas id="ROIView" width="500" height="300"></canvas>
-              <!--<canvas id="drawingCanvas" width="500" height="300"></canvas>-->
+              <!--<canvas id="drawingCanvas" width="500" height="3i00"></canvas>-->
          </div>
           </div>
           <div class="row ">
@@ -92,7 +93,7 @@
         <div class="col-md-4">
           <h2>Refresh</h2>
           <p>Click Here to refresh the camera image</p>
-          <p><button type="button" id="refreshBackground"class="btn btn-default" href="#" role="button">Refresh</button></p>
+          <p><button type="submit" id="refreshBackground" class="btn btn-default" href="#" role="button" action="/refresh" method="get">Refresh</button></p>
         </div>
 %if status == True:
           <div class="col-md-4">
@@ -209,7 +210,7 @@
 				<input type="file" name="data" />
 				<p class="help-block">Select version to upload.</p>
 			</div>
-			<button onclick="return conf();"  action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
+			<button onclick="return conf();" action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
 			<script type="text/javascript">
 				function conf() {
 					if (confirm("WARNING: updating the package will stop tracking. Do you wish to continue?")) {

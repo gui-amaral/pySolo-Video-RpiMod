@@ -7,6 +7,8 @@ from signal import SIGTERM
 import json
 import zipfile
 import glob
+import time 
+import picamera
 
 basedir=path.dirname(os.path.realpath(__file__))
 
@@ -125,17 +127,23 @@ def state():
 
 @app.get('/refresh')
 def refresh():
-    pid, isAlreadyRunning = checkPid()
-    if isAlreadyRunning:
+#    pid, isAlreadyRunning = checkPid()
+#    if isAlreadyRunning:
+    with picamera.PiCamera() as camera:
+        camera.resolution = (1024, 768)
+        camera.start_preview()
+        time.sleep(2)
+        camera.capture('static/img/foo.jpg')
+    redirect("/")
         #add a call to a function to update snapshot when trackingType
         #for now, do nothing
-        pass 
-    else:
-        pySolo = call(["python2",path.join(basedir,"pvg_standalone.py"), 
-                        "-c", path.join(basedir,"pysolo_video.cfg"),
-                        "-i","0",
-                        "--snapshot",])
-    redirect("/")
+#        pass 
+#    else:
+#        pySolo = call(["python2",path.join(basedir,"pvg_standalone.py"), 
+#                        "-c", path.join(basedir,"pysolo_video.cfg"),
+#                        "-i","0",
+#                        "--snapshot",])
+#    redirect("/")
     #_,status = checkPid()
     #return template('index', machineId=mid, status=status)
 
@@ -209,9 +217,6 @@ def do_update():
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
 
-#    pid_svr = checkPid_server()
-#    kill(pid_svr,SIGTERM)
-
     call(['python3','restartScript.py'])
 
     return redirect('/')
@@ -230,18 +235,6 @@ def checkPid():
         pid = None
     proc.stdout.close()
     return pid, started
-
-def checkPid_server():
-    proc = Popen(["pgrep", "-f",
-                  "python3 "+path.join(basedir,"server.py")]
-                 , stdout=PIPE)
-    try:
-        pid = int(proc.pid)
-    except:
-        pid = None
-    proc.stdout.close()
-    return pid
-
 
 def changeMId(name):
     f = open(path.join(basedir,'machineId'),'w')

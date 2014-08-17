@@ -12,8 +12,9 @@
     height: 375;
     padding: 0 ; 
     margin:1em;
-
+    
 }
+
 #drawingCanvas{
     position: relative;
     border: 2px black solid;
@@ -23,7 +24,8 @@
 #ROIView{
     position:absolute;
     z-index: 1;
-    border: 2px black solid;    
+    border: 2px black solid;
+   
 }
 
 #pickloaded{
