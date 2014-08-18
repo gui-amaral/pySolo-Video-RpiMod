@@ -205,7 +205,7 @@ def do_update():
     data = request.files.data
     name1,ext = os.path.splitext(data.filename)
     if ext not in ('.zip'):
-        return 'File must be in zip format.'	
+        return "File must be in .zip format."
     if data and data.file:
         filename = data.filename
         with open(filename,'w') as open_file:
@@ -217,9 +217,9 @@ def do_update():
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
 
-    call(['python3','restartScript.py'])
+#    call(['python3','restartScript.py'])
 
-    return redirect('/')
+    return
 
 """helpers methods."""
 

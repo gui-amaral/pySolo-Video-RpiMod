@@ -60,7 +60,6 @@
       <div class="container text-center">
         <div class="row">
         <h2>PySolo-Video Browser editor</h2>
-	<img src="../static/img/foo.jpg" width="500" height="300"></img>
           <div id="ROI-input" class="col-md-12">
             <canvas id="ROIView" width="500" height="300"></canvas>
               <!--<canvas id="drawingCanvas" width="500" height="3i00"></canvas>-->
@@ -205,22 +204,14 @@
       <hr>
 
 	<div class = "col-md-12">	
-		<form action="/update" method="post" enctype="multipart/form-data" role="form">  
-			<div class="form-group">
-				<input type="file" name="data" />
-				<p class="help-block">Select version to upload.</p>
-			</div>
-			<button onclick="return conf();" action="/update" method="post" type="submit" class="btn btn-default btn-sm" enctype="multipart/form-data">Submit</button>
-			<script type="text/javascript">
-				function conf() {
-					if (confirm("WARNING: updating the package will stop tracking. Do you wish to continue?")) {
-					} else {
-						return false;
-					};
-				};
-			</script>
-		</form>
+	 <form id="upload-file" method="post" enctype="multipart/form-data">  
+	  <div class="form-group">
+	   <input type="file" name="data" />
+	    <p class="help-block">Select version to upload.</p>
 	</div>
+	<button onclick="return conf();" type="button" class="btn btn-default btn-sm" id="upload-file-btn">Submit</button>
+	  </form>
+	 </div>
 	<hr>
 
       <footer>
@@ -235,6 +226,34 @@
         $('#machineid').tooltip();
             $('#autoMask').tooltip();
         </script>
+	<script type="text/javascript">
+	 function conf() {
+          if (confirm("WARNING: updating the package will stop tracking. Do you wish to continue?")) {
+          } else {
+             return false;
+            };
+         };
+	</script>
+	
+	<script type="text/javascript">
+	 $(function() {
+	  $('#upload-file-btn').click(function() {
+           var form_data = new FormData($('#upload-file')[0]);
+           $.ajax({
+            type: 'POST',
+            url: '/update',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: false,
+            success: function(data) {
+                setTimeout(function() {alert("File uploaded successfully. Please restart tracking.")}, 5000);
+            },
+           });
+          });
+	 });
+	</script>
     </body>
 </html>
 
