@@ -15,6 +15,8 @@ def pid():
 
 pid = pid()
 
-kill(pid,SIGTERM)
-
-call(['python3','server.py'])
+try:
+    kill(pid,SIGTERM)
+    call(['python3','server.py'])
+except KeyboardInterrupt:
+    pass

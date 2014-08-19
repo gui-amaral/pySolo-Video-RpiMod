@@ -206,7 +206,7 @@
 	<div class = "col-md-12">	
 	 <form id="upload-file" method="post" enctype="multipart/form-data">  
 	  <div class="form-group">
-	   <input type="file" name="data" />
+	   <input type="file" name="data" id="data" />
 	    <p class="help-block">Select version to upload.</p>
 	</div>
 	<button onclick="return conf();" type="button" class="btn btn-default btn-sm" id="upload-file-btn">Submit</button>
@@ -236,22 +236,29 @@
 	</script>
 	
 	<script type="text/javascript">
-	 $(function() {
-	  $('#upload-file-btn').click(function() {
-           var form_data = new FormData($('#upload-file')[0]);
-           $.ajax({
-            type: 'POST',
-            url: '/update',
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: false,
-            success: function(data) {
-                setTimeout(function() {alert("File uploaded successfully. Please restart tracking.")}, 5000);
-            },
-           });
-          });
+	 $(document).ready(function() {
+	     $('#upload-file-btn').click(function() {
+	         
+		 var ext = $('#data').val().split('.').pop().toLowerCase();
+                 
+                 if($.inArray(ext, ['zip']) == -1) {
+                     alert('File must be in .zip format.');
+                 } else {
+                     var form_data = new FormData($('#upload-file')[0]);
+                     $.ajax({
+                         type: 'POST',
+                         url: '/update',
+                         data: form_data,
+                         contentType: false,
+                         cache: false,
+                         processData: false,
+                         async: false,
+                         success: function(data) {
+                             setTimeout(function() {alert("File uploaded successfully. Please restart tracking.")}, 5000);
+                         },
+                     });
+                 }
+             });
 	 });
 	</script>
     </body>
