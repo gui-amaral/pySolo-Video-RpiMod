@@ -8,7 +8,7 @@ import json
 import zipfile
 import glob
 
-basedir=path.dirname(os.path.realpath(__file__))
+basedir=path.dirname(path.realpath(__file__))
 
 app = Bottle()
 
@@ -195,12 +195,12 @@ def do_update():
     
     if isAlreadyRunning:
         startStop()
-    
+
     data = request.files.data
     
     if data and data.file:
         filename = data.filename
-        with open(filename,'w') as open_file:
+        with open(filename,'wb') as open_file:
             open_file.write(data.file.read())
 
     with zipfile.ZipFile(data.filename, "r") as z:
@@ -209,9 +209,7 @@ def do_update():
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
 
-#    return call(['python3','restartScript.py'])
-
-    return
+    return Popen(["python3 restartScript.py"],shell=True)
 
 """helpers methods."""
 
