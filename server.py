@@ -209,7 +209,7 @@ def do_update():
     for hgx in glob.glob(data.filename):
         os.remove(hgx)
 
-    return Popen(["python3 restartScript.py"],shell=True)
+    return call(["python3 restartScript.py"],shell=True)
 
 """helpers methods."""
 
@@ -258,7 +258,7 @@ def readData():
 roiList={}
 
 run(app,host='0.0.0.0', port=8088, debug=True, reloader=True, interval=5)
-
+  
 #from gevent.pywsgi import WSGIServer
 #from geventwebsocket.handler import WebSocketHandler
 #server = WSGIServer(("0.0.0.0", 8088), app,
